@@ -1,11 +1,7 @@
-// C++ program to encode and decode a string using
-// Huffman Coding.
+#include <iostream>
 #include <bits/stdc++.h>
-#include<iostream>
 #include <cstdio>
 #include <stdio.h>
-//#include <stdio_ext.h>
-//#define MAX_TREE_HT 256
 using namespace std;
 
 // function that maps each character their respective Huffman value
@@ -49,7 +45,7 @@ void print_codes(struct min_heap * root, string str)
 	print_codes(root -> right, str + "1");
 }
 
-// utility function to store characters along with there huffman value in a hash table.
+// function that stores the characters along with their huffman values in a hash table.
 void store_codes(struct min_heap * root, string str)
 {
 	if (root == NULL)
@@ -60,7 +56,7 @@ void store_codes(struct min_heap * root, string str)
 	store_codes(root -> right, str + "1");
 }
 
-// STL priority queue to store heap tree
+// priority queue to store heap trees
 priority_queue < min_heap *, vector <min_heap*>, compare > min_heap_object;
 
 void clear_queue()
@@ -78,7 +74,7 @@ void clear_all()
 	clear_queue();
 }
 
-// function to build the Huffman tree and store it in min_heap_object
+// function to build the Huffman tree and store it in min heap object
 void huffman_encoding(int size)
 {
 	struct min_heap *left, *right, *top;
@@ -98,7 +94,7 @@ void huffman_encoding(int size)
 	store_codes(min_heap_object.top(), "");
 }
 
-// utility function to store map each character with its frequency in input string
+// function to store each character with its frequency in input string
 void calculate_frequency(string str, int n)
 {
 	for (int i = 0; i < str.size(); i++)
@@ -115,7 +111,7 @@ void display_frequency()
 	cout << endl;
 }
 
-// function iterates through the encoded string
+// function that runs through the encoded string
 string huffman_decoding(struct min_heap * root, string s)
 {
 	string result = "";
@@ -127,14 +123,13 @@ string huffman_decoding(struct min_heap * root, string s)
 		else
 		curr = curr -> right;
 
-		// reached leaf node
+		// case where the leaf node is reached
 		if (curr -> left == NULL and curr -> right == NULL)
 		{
 			result += curr -> data;
 			curr = root;
 		}
 	}
-	// cout<<result<<endl;
 	return result+'\0';
 }
 
